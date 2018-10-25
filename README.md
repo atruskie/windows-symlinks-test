@@ -1,6 +1,9 @@
 # Windows Symlinks Test
 
-This repository shows how git symlinks can work in Windows
+This repository shows how git symlinks can work in Windows and also
+with a CentOS guest provisioned by Vagrant.
+
+![proof](./proof.png)
 
 ## Requirements
 
@@ -26,7 +29,7 @@ This repository shows how git symlinks can work in Windows
     120000 63d8dbd40c23542e740659a7168a0ce3138ea748 0       directory_link
     120000 63d8dbd40c23542e740659a7168a0ce3138ea748 0       directory_link_non_admin
     ```
-- when working with another filesystem force line endings to be consistent. It endsm up being easier to
+- when working with another filesystem force line endings to be consistent. It ends up being easier to
   choose `LF` always as most Windows IDEs support either `LF` or `CRLF` ending but most *NIX
   applications have limited or no support for `CRLF`
   - See the .gitattributes file for a demo
@@ -40,12 +43,12 @@ cmd
 C:\...\windows-symlinks-test\a>mklink source_link_example_non_admin.txt ..\b\content.txt
 symbolic link created for source_link_example_non_admin.txt <<===>> ..\b\content.txt
 
-C:\Work\GitHub\windows-symlinks-test\a>cd ..
+C:\...\windows-symlinks-test\a>cd ..
 
-C:\Work\GitHub\windows-symlinks-test>ls
+C:\...\windows-symlinks-test>ls
 README.md  a  b  directory_link
 
-C:\Work\GitHub\windows-symlinks-test>mklink /d directory_link_non_admin b
+C:\...\windows-symlinks-test>mklink /d directory_link_non_admin b
 symbolic link created for directory_link_non_admin <<===>> b
 
 # back to PowerShell
@@ -76,4 +79,9 @@ exit
       to specify which provider you want to use:
       `vagrant up --provider=hyperv`
 - The Vagrantfile in this repo run symlink_test.sh which should, as a 
-  proof of concept, show symlinks being shared with the guest.
+  proof of concept, show symlinks being shared with the guest (see image at top
+  that demonstrates links working).
+- While the Vagrantfile in this repo is only configured for Windows you
+  can define Vagrantfiles that use _different_ providers and synced_folder
+  solutions for different OSs. I strongly recommend doing this if other
+  developers on your team do not use Windows
